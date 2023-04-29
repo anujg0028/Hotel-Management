@@ -127,20 +127,20 @@ const bookRoom=async (req,res)=>
         startDate=new Date(startDate.getTime()+1000*60*60*24);
     }
     
-    /*var transport = nodemailer.createTransport({
+    var transport = nodemailer.createTransport({
             host: "smtp-mail.outlook.com", 
             secureConnection: false,
             port: 587,
             auth: {
-                user: "mecmaharshi9@hotmail.com",
-                pass: "testing@123"
+                user: "AppModProject@hotmail.com",
+                pass: "CelebalProject12*"
             },
             tls: {
                 ciphers:'SSLv3'
             }
         });
         var mailOptions={
-            from: 'mecmaharshi9@hotmail.com',
+            from: 'AppModProject@hotmail.com',
             to: userInfo.email,
             subject: 'New Booking',
             text: `Hi ${userInfo.firstname} Your booking is confirm`,
@@ -150,7 +150,7 @@ const bookRoom=async (req,res)=>
             else console.log("email send  "+info.response)
         });
 
-        */
+        
 
     let roominfo=await roomInfo.findOne({
         where: {
