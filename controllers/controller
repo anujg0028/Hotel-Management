@@ -194,16 +194,13 @@ const getAvaibility=async (req,res)=>
     let startDate=new Date(info.check_in);
     let checkOutDate=new Date(info.check_out);
     let endDate = new Date(checkOutDate.getTime()+1000*60*60*24);
-    console.log(startDate.getMonth()+"                   "+endDate.getMonth())
     while((startDate.getDate()!=endDate.getDate()))
     {
-        console.log(startDate+" ===============================")
         let result=await availabilty.findOne({
             where: {
               Date: startDate
             }});
-        
-        console.log(result+ " +++++++++++++++++++++++")
+       
          if(result!=null){ 
             
             if(result.DELUXEPRIME<=0)minCount.DELUXEPRIME="Room Full";
