@@ -1,0 +1,224 @@
+const availabilty=require('../model/Availabilty');
+const roomInfo=require('../model/RoomInfo');
+const bookingInfo=require('../model/Booking_Info');
+const nodemailer=require('nodemailer');
+const sequelize=require('sequelize');
+
+let defaultValue={
+    Date:"",
+    DELUXEPRIME:54,
+    DELUXESUPREME:50,
+    IMPERIALCLUBROOM:50,
+    TERRACECLUBSUITE:50,
+    EXCLUSIVECLUBSUITE:18,
+    REGALCLUBSUITE:30
+}
+
+async function updateRoomData(roomData,roomType,totalRoom)
+{
+    switch(roomType)
+    {
+        case 'DELUXEPRIME':
+            if(roomData.id)
+            {
+               roomData.DELUXEPRIME=roomData.DELUXEPRIME-totalRoom;
+               await roomData.save();
+            }
+            else
+            {
+                roomData.DELUXEPRIME=roomData.DELUXEPRIME-totalRoom;
+                var singleRow=availabilty.build(roomData);
+                await singleRow.save(); 
+            }
+            break;
+        case "DELUXESUPREME":
+            if(roomData.id)
+            {
+               roomData.DELUXESUPREME=roomData.DELUXESUPREME-totalRoom;
+               await roomData.save();
+            }
+            else
+            {
+                roomData.DELUXESUPREME=roomData.DELUXESUPREME-totalRoom;
+                var singleRow=availabilty.build(roomData);
+                await singleRow.save(); 
+            }
+            break;
+        case "IMPERIALCLUBROOM":
+            if(roomData.id)
+            {
+               roomData.IMPERIALCLUBROOM=roomData.IMPERIALCLUBROOM-totalRoom;
+               await roomData.save();
+            }
+            else
+            {
+                roomData.IMPERIALCLUBROOM=roomData.IMPERIALCLUBROOM-totalRoom;
+                var singleRow=availabilty.build(roomData);
+                await singleRow.save(); 
+            }
+            break;
+        case "TERRACECLUBSUITE": 
+            if(roomData.id)
+            {
+                roomData.TERRACECLUBSUITE=roomData.TERRACECLUBSUITE-totalRoom;
+                await roomData.save();
+            }
+            else
+            {
+                roomData.TERRACECLUBSUITE=roomData.TERRACECLUBSUITE-totalRoom;
+                var singleRow=availabilty.build(roomData);
+                await singleRow.save(); 
+            }
+            break;
+        case 'EXCLUSIVECLUBSUITE':
+            if(roomData.id)
+            {
+               roomData.EXCLUSIVECLUBSUITE=roomData.EXCLUSIVECLUBSUITE-totalRoom;
+               await roomData.save();
+            }
+            else
+            {
+                roomData.EXCLUSIVECLUBSUITE=roomData.EXCLUSIVECLUBSUITE-totalRoom;
+                var singleRow=availabilty.build(roomData);
+                await singleRow.save(); 
+            }
+            break;
+        case "REGALCLUBSUITE":
+            if(roomData.id)
+            {
+               roomData.REGALCLUBSUITE=roomData.REGALCLUBSUITE-totalRoom;
+               await roomData.save();
+            }
+            else
+            {
+                roomData.REGALCLUBSUITE=roomData.REGALCLUBSUITE-totalRoom;
+                var singleRow=availabilty.build(roomData);
+                await singleRow.save(); 
+            }
+            break;
+        default: console.log("no match");
+    }
+}
+
+const bookRoom=async (req,res)=>
+{
+    try{
+
+    const userInfo=req.body;
+    const noOfRoom=req.body.no_of_room;
+    let startDate=new Date(userInfo.check_in);
+    let checkOutDate=new Date(userInfo.check_out);
+    let endDate = new Date(checkOutDate.getTime()+1000*60*60*24).getDate();
+
+    while(startDate.getDate()!=endDate)
+    {
+        let result=await availabilty.findOne({
+        where: {
+          Date: startDate
+        }});
+
+        if(result==null){
+            defaultValue.Date=startDate;
+            await updateRoomData({...defaultValue},userInfo.roomtype,noOfRoom);
+        }
+        else {  
+            await updateRoomData(result,userInfo.roomtype,noOfRoom);
+        }
+        startDate=new Date(startDate.getTime()+1000*60*60*24);
+    }
+    
+    /*var transport = nodemailer.createTransport({
+            host: "smtp-mail.outlook.com", 
+            secureConnection: false,
+            port: 587,
+            auth: {
+                user: "mecmaharshi9@hotmail.com",
+                pass: "testing@123"
+            },
+            tls: {
+                ciphers:'SSLv3'
+            }
+        });
+        var mailOptions={
+            from: 'mecmaharshi9@hotmail.com',
+            to: userInfo.email,
+            subject: 'New Booking',
+            text: `Hi ${userInfo.firstname} Your booking is confirm`,
+        };
+        transport.sendMail(mailOptions,function(err,info){
+            if(err)console.log(err);
+            else console.log("email send  "+info.response)
+        });
+
+        */
+
+    let roominfo=await roomInfo.findOne({
+        where: {
+          RoomType: userInfo.roomtype
+        }});
+
+    userInfo.total_price=roominfo.Price*noOfRoom;
+    const singleuser=bookingInfo.build(userInfo);
+    singleuser.save().then((data)=>res.json(data)).catch((err)=>console.log(err));
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.json("bad request");
+    }
+}
+
+const getAvaibility=async (req,res)=>
+{
+    try{
+        
+        let minCount={
+            DELUXEPRIME:54,
+            DELUXESUPREME:50,
+            IMPERIALCLUBROOM:50,
+            TERRACECLUBSUITE:50,
+            EXCLUSIVECLUBSUITE:18,
+            REGALCLUBSUITE:30
+        }
+
+    const info=req.body;
+    let startDate=new Date(info.check_in);
+    let checkOutDate=new Date(info.check_out);
+    let endDate = new Date(checkOutDate.getTime()+1000*60*60*24);
+    console.log(startDate.getMonth()+"                   "+endDate.getMonth())
+    while((startDate.getDate()!=endDate.getDate()))
+    {
+        console.log(startDate+" ===============================")
+        let result=await availabilty.findOne({
+            where: {
+              Date: startDate
+            }});
+        
+        console.log(result+ " +++++++++++++++++++++++")
+        if(result!=null){ 
+            if(result.DELUXEPRIME<minCount.DELUXEPRIME){minCount.DELUXEPRIME=result.DELUXEPRIME;console.log(result.DELUXEPRIME<minCount.DELUXEPRIM);}
+            if(result.DELUXESUPREME<minCount.DELUXESUPREME){minCount.DELUXESUPREME=result.DELUXESUPREME;console.log(result.DELUXEPRIME<minCount.DELUXEPRIM);}
+            if(result.IMPERIALCLUBROOM<minCount.IMPERIALCLUBROOM)minCount.IMPERIALCLUBROOM=result.IMPERIALCLUBROOM;
+            if(result.TERRACECLUBSUITE<minCount.TERRACECLUBSUITE)minCount.TERRACECLUBSUITE=result.TERRACECLUBSUITE;
+            if(result.EXCLUSIVECLUBSUITE<minCount.EXCLUSIVECLUBSUITE)minCount.EXCLUSIVECLUBSUITE=result.EXCLUSIVECLUBSUITE;
+            if(result.REGALCLUBSUITE<minCount.REGALCLUBSUITE)minCount.REGALCLUBSUITE=result.REGALCLUBSUITE;
+        }
+        
+        startDate=new Date(startDate.getTime()+1000*60*60*24);    
+    }
+       res.json(minCount);
+
+    }
+    catch(err){
+         res.json("bad request  "+err);
+    }
+
+}
+
+
+
+module.exports={bookRoom,getAvaibility};
+
+
+
+

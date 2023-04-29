@@ -1,0 +1,46 @@
+const {DataTypes}=require('sequelize');
+const sequelize=require('./sequelize');
+
+const availabilty=sequelize.define('Availabilty',{
+  
+id: {
+    type:DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement:true,
+    allowNull:false
+    },  
+  Date: {
+    type:DataTypes.DATEONLY,
+    allowNull:true,
+  },
+  DELUXEPRIME: {
+    type:DataTypes.INTEGER,
+    allowNull:true
+  },
+  DELUXESUPREME: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+  IMPERIALCLUBROOM: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+  TERRACECLUBSUITE: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+  EXCLUSIVECLUBSUITE: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+  REGALCLUBSUITE: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  }
+},{
+    freezeTableName:true,
+    tableName:'Availabilty',
+    timestamps: false,
+});
+
+module.exports=availabilty;

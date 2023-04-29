@@ -1,0 +1,39 @@
+const {DataTypes}=require('sequelize');
+const sequelize=require('./sequelize');
+
+const roomInfo=sequelize.define('RoomInfo',{
+
+id: {
+        type:DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement:true,
+        allowNull:false
+      },  
+  RoomId: {
+    type:DataTypes.INTEGER,
+    allowNull:true,
+  },
+  RoomType: {
+    type:DataTypes.STRING,
+    allowNull:true
+  },
+  Price: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+  TotalRoom: {
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+  AverageRating: {
+    type: DataTypes.DECIMAL,
+    allowNull:true
+  }
+},{
+    tableName:'RoomInfo',
+    freezeTableName:true,
+    timestamps: false,
+    //primaryKey: false,
+});
+
+module.exports=roomInfo;

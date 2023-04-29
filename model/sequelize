@@ -1,0 +1,14 @@
+const Sequelize=require('sequelize');
+
+const sequelize=new Sequelize('team5db','admin1','testing@123',{
+    dialect:'mssql',
+    host:'appmoddteam5server.database.windows.net',
+    dialectOptions: {
+        options: {
+          encrypt: true,
+        },
+    }
+});
+
+
+module.exports=sequelize;
