@@ -1,0 +1,9 @@
+const express=require('express');
+const {bookRoom,getAvaibility}=require('../controllers/controller');
+const router=express.Router();
+
+
+router.post('/roomAvaibility',getAvaibility);
+router.post('/booking',bookRoom);
+
+module.exports=router;
