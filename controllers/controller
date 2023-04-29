@@ -143,7 +143,16 @@ const bookRoom=async (req,res)=>
             from: 'AppModProject@hotmail.com',
             to: userInfo.email,
             subject: 'New Booking',
-            text: `Hi ${userInfo.firstname} Your booking is confirm`,
+           text: `Hello ${userInfo.firstname} ${userInfo.lastname} we are enlighten that you have successfully booked ${userInfo.roomtype} from ${userInfo.check_in} to ${userInfo.check_out}
+            
+Rooms: ${noOfRoom},
+No of People: ${userInfo.no_of_people},
+Payment: ${userInfo.payment_method}
+            
+Please bring Id proof at the time of checkin.
+Looking forward to serve you.
+Happy Stay,
+Team-5`,
         };
         transport.sendMail(mailOptions,function(err,info){
             if(err)console.log(err);
