@@ -182,12 +182,12 @@ const getAvaibility=async (req,res)=>
     try{
         
         let minCount={
-            DELUXEPRIME:54,
-            DELUXESUPREME:50,
-            IMPERIALCLUBROOM:50,
-            TERRACECLUBSUITE:50,
-            EXCLUSIVECLUBSUITE:18,
-            REGALCLUBSUITE:30
+            DELUXEPRIME:"54",
+            DELUXESUPREME:"50",
+            IMPERIALCLUBROOM:"50",
+            TERRACECLUBSUITE:"50",
+            EXCLUSIVECLUBSUITE:"18",
+            REGALCLUBSUITE:"30"
         }
 
     const info=req.body;
@@ -204,13 +204,25 @@ const getAvaibility=async (req,res)=>
             }});
         
         console.log(result+ " +++++++++++++++++++++++")
-        if(result!=null){ 
-            if(result.DELUXEPRIME<minCount.DELUXEPRIME){minCount.DELUXEPRIME=result.DELUXEPRIME;console.log(result.DELUXEPRIME<minCount.DELUXEPRIM);}
-            if(result.DELUXESUPREME<minCount.DELUXESUPREME){minCount.DELUXESUPREME=result.DELUXESUPREME;console.log(result.DELUXEPRIME<minCount.DELUXEPRIM);}
-            if(result.IMPERIALCLUBROOM<minCount.IMPERIALCLUBROOM)minCount.IMPERIALCLUBROOM=result.IMPERIALCLUBROOM;
-            if(result.TERRACECLUBSUITE<minCount.TERRACECLUBSUITE)minCount.TERRACECLUBSUITE=result.TERRACECLUBSUITE;
-            if(result.EXCLUSIVECLUBSUITE<minCount.EXCLUSIVECLUBSUITE)minCount.EXCLUSIVECLUBSUITE=result.EXCLUSIVECLUBSUITE;
-            if(result.REGALCLUBSUITE<minCount.REGALCLUBSUITE)minCount.REGALCLUBSUITE=result.REGALCLUBSUITE;
+         if(result!=null){ 
+            
+            if(result.DELUXEPRIME<=0)minCount.DELUXEPRIME="Room Full";
+            else if(result.DELUXEPRIME<minCount.DELUXEPRIME)minCount.DELUXEPRIME=result.DELUXEPRIME;
+
+            if(result.DELUXESUPREME<=0)minCount.DELUXESUPREME="Room Full";
+            else if(result.DELUXESUPREME<minCount.DELUXESUPREME)minCount.DELUXESUPREME=result.DELUXESUPREME;
+
+            if(result.IMPERIALCLUBROOM<=0)minCount.IMPERIALCLUBROOM="Room Full";
+            else if(result.IMPERIALCLUBROOM<minCount.IMPERIALCLUBROOM)minCount.IMPERIALCLUBROOM=result.IMPERIALCLUBROOM;
+
+            if(result.TERRACECLUBSUITE<=0)minCount.TERRACECLUBSUITE="Room Full";
+            else if(result.TERRACECLUBSUITE<minCount.TERRACECLUBSUITE)minCount.TERRACECLUBSUITE=result.TERRACECLUBSUITE;
+
+            if(result.EXCLUSIVECLUBSUITE<=0)minCount.EXCLUSIVECLUBSUITE="Room Full";
+            else if(result.EXCLUSIVECLUBSUITE<minCount.EXCLUSIVECLUBSUITE)minCount.EXCLUSIVECLUBSUITE=result.EXCLUSIVECLUBSUITE;
+
+            if(result.REGALCLUBSUITE<=0)minCount.REGALCLUBSUITE="Room Full";
+            else if(result.REGALCLUBSUITE<minCount.REGALCLUBSUITE)minCount.REGALCLUBSUITE=result.REGALCLUBSUITE;
         }
         
         startDate=new Date(startDate.getTime()+1000*60*60*24);    
