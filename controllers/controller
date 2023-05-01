@@ -203,22 +203,22 @@ const getAvaibility=async (req,res)=>
        
          if(result!=null){ 
             
-            if(result.DELUXEPRIME<=0)minCount.DELUXEPRIME="Room Full";
+            if(result.DELUXEPRIME<=0)minCount.DELUXEPRIME="No";
             else if(result.DELUXEPRIME<minCount.DELUXEPRIME)minCount.DELUXEPRIME=result.DELUXEPRIME;
 
-            if(result.DELUXESUPREME<=0)minCount.DELUXESUPREME="Room Full";
+            if(result.DELUXESUPREME<=0)minCount.DELUXESUPREME="No";
             else if(result.DELUXESUPREME<minCount.DELUXESUPREME)minCount.DELUXESUPREME=result.DELUXESUPREME;
 
-            if(result.IMPERIALCLUBROOM<=0)minCount.IMPERIALCLUBROOM="Room Full";
+            if(result.IMPERIALCLUBROOM<=0)minCount.IMPERIALCLUBROOM="No";
             else if(result.IMPERIALCLUBROOM<minCount.IMPERIALCLUBROOM)minCount.IMPERIALCLUBROOM=result.IMPERIALCLUBROOM;
 
-            if(result.TERRACECLUBSUITE<=0)minCount.TERRACECLUBSUITE="Room Full";
+            if(result.TERRACECLUBSUITE<=0)minCount.TERRACECLUBSUITE="No";
             else if(result.TERRACECLUBSUITE<minCount.TERRACECLUBSUITE)minCount.TERRACECLUBSUITE=result.TERRACECLUBSUITE;
 
-            if(result.EXCLUSIVECLUBSUITE<=0)minCount.EXCLUSIVECLUBSUITE="Room Full";
+            if(result.EXCLUSIVECLUBSUITE<=0)minCount.EXCLUSIVECLUBSUITE="No";
             else if(result.EXCLUSIVECLUBSUITE<minCount.EXCLUSIVECLUBSUITE)minCount.EXCLUSIVECLUBSUITE=result.EXCLUSIVECLUBSUITE;
 
-            if(result.REGALCLUBSUITE<=0)minCount.REGALCLUBSUITE="Room Full";
+            if(result.REGALCLUBSUITE<=0)minCount.REGALCLUBSUITE="No";
             else if(result.REGALCLUBSUITE<minCount.REGALCLUBSUITE)minCount.REGALCLUBSUITE=result.REGALCLUBSUITE;
         }
         
