@@ -132,15 +132,15 @@ const bookRoom=async (req,res)=>
             secureConnection: false,
             port: 587,
             auth: {
-                user: "AppModProject@hotmail.com",
-                pass: "CelebalProject12*"
+                user: "appmodproject@gmail.com",
+                pass: "CELEBAL@123"
             },
             tls: {
                 ciphers:'SSLv3'
             }
         });
         var mailOptions={
-            from: 'AppModProject@hotmail.com',
+            from: 'appmodproject@gmail.com',
             to: userInfo.email,
             subject: 'New Booking',
            text: `Hello ${userInfo.firstname} ${userInfo.lastname} we are enlighten that you have successfully booked ${userInfo.roomtype} from ${userInfo.check_in} to ${userInfo.check_out}
