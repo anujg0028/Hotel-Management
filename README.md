@@ -1,4 +1,4 @@
-# App-Mod
+# Hotel-Booking
 Express and Rest-based applications through which a user can book rooms in a hotel.
 
 A new User first needs to register and when he/she completed registration they get a welcome email message.
